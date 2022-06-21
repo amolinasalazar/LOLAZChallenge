@@ -1,4 +1,4 @@
-const API_KEY = 'RGAPI-dd70ea03-521b-4551-bc89-a83116192c00';
+const API_KEY = '';
 const options = {
   "async": true,
   "crossDomain": true,
