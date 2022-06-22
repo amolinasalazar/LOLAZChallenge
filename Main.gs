@@ -23,7 +23,6 @@ function lolChallenge() {
 	let summonerRang = summonerRange.getRanges();
 	let summoners = summonerRang[0].getValues()[0];
 
-	let summonerIds = [];
 	let dataRange = mainSheet.getDataRange();
 	let matrix = dataRange.getValues();
 
