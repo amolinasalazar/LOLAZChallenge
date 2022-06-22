@@ -1,4 +1,4 @@
-const API_KEY = '';
+const API_KEY = 'RGAPI-3421fc48-7add-4449-876c-bc21b41f1e5b';
 const options = {
 	"async": true,
 	"crossDomain": true,
@@ -11,11 +11,13 @@ const options = {
 		"X-Riot-Token": API_KEY
 	}
 };
+const SHEET_NAME = "LOL";
+const TIME_RETRIEVE_STATS = 24;
 
 function lolChallenge() {
 
 	let ss = SpreadsheetApp.getActiveSpreadsheet();
-	let mainSheet = ss.getSheetByName("LOL");
+	let mainSheet = ss.getSheetByName(SHEET_NAME);
 
 	let summonerRange = mainSheet.getRangeList(['B1:F1']);
 	let summonerRang = summonerRange.getRanges();
@@ -33,7 +35,6 @@ function lolChallenge() {
 			for (let i = 0; i < matches.length; i++) {
 
 				Logger.log(getWinsAndLoses(matches[i], puuid));
-				Logger.log(puuid);
 
 				let nameAndWin = getWinsAndLoses(matches[i], puuid);
 				nameAndWin.name = nameAndWin.name.replaceAll(' ', '').toUpperCase();
@@ -52,13 +53,16 @@ function lolChallenge() {
 					}
 				}
 
-				if (!mainSheet.getRange(champRow, summonerCol).getValues().includes('O')) {
+				let targetCellRange = mainSheet.getRange(champRow, summonerCol);
+				let targetCell = targetCellRange.getCell(1, 1).getValue();
+
+				if (!targetCell.includes('O')) {
 					let result = 'X';
 
 					if (nameAndWin.win)
-						result = 'O'
+						result = 'O';
 
-					mainSheet.getRange(champRow, summonerCol).setValue(mainSheet.getRange(champRow + 1, summonerCol + 1).getValues() + result);
+					targetCellRange.setValue(targetCell + result);
 				}
 			}
 		}
@@ -74,7 +78,7 @@ function getPUUID(summonerName) {
 }
 
 function getMatchesIds(puuid) {
-	var yesterday = Math.trunc(new Date().getTime() / 1000) - (12 * 60 * 60);
+	var yesterday = Math.trunc(new Date().getTime() / 1000) - (TIME_RETRIEVE_STATS * 60 * 60);
 
 	var response = UrlFetchApp.fetch('https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/' + puuid + '/ids?startTime=' + yesterday + '&queue=400&start=0', options);
 	var json = response.getContentText();
@@ -98,4 +102,3 @@ function getWinsAndLoses(matchId, puuid) {
 		}
 	}
 }
-
