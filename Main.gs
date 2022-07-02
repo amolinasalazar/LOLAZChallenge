@@ -15,10 +15,7 @@ const SHEET_NAME = "LOL";
 const HOURS_BACK_RETRIEVE_STATS = 24;
 
 function lolChallenge() {
-
-	let ss = SpreadsheetApp.getActiveSpreadsheet();
-	let mainSheet = ss.getSheetByName(SHEET_NAME);
-
+	let mainSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
 	let summoners = mainSheet.getRangeList(['B1:F1']).getRanges()[0].getValues()[0];
 
 	let dataRange = mainSheet.getDataRange();
