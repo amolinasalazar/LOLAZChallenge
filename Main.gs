@@ -1,4 +1,4 @@
-const API_KEY = 'RGAPI-3421fc48-7add-4449-876c-bc21b41f1e5b';
+const API_KEY = 'RGAPI-7c8ee6f2-15d3-4544-b5b3-f29de18bd770';
 const options = {
 	"async": true,
 	"crossDomain": true,
@@ -19,9 +19,7 @@ function lolChallenge() {
 	let ss = SpreadsheetApp.getActiveSpreadsheet();
 	let mainSheet = ss.getSheetByName(SHEET_NAME);
 
-	let summonerRange = mainSheet.getRangeList(['B1:F1']);
-	let summonerRang = summonerRange.getRanges();
-	let summoners = summonerRang[0].getValues()[0];
+	let summoners = mainSheet.getRangeList(['B1:F1']).getRanges()[0].getValues()[0];
 
 	let dataRange = mainSheet.getDataRange();
 	let matrix = dataRange.getValues();
@@ -32,7 +30,6 @@ function lolChallenge() {
 
 		if (matches.length !== 0) {
 			for (let i = 0; i < matches.length; i++) {
-
 				Logger.log(getWinsAndLoses(matches[i], puuid));
 
 				let nameAndWin = getWinsAndLoses(matches[i], puuid);
@@ -52,8 +49,8 @@ function lolChallenge() {
 					}
 				}
 
-				let targetCellRange = mainSheet.getRange(champRow, summonerCol);
-				let targetCell = targetCellRange.getCell(1, 1).getValue();
+        let targetCellRange = mainSheet.getRange(champRow, summonerCol);
+        let targetCell = targetCellRange.getCell(1, 1).getValue();
 
 				if (!targetCell.includes('O')) {
 					let result = 'X';
