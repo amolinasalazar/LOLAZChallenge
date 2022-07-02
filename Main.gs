@@ -1,5 +1,4 @@
-const API_KEY = 'RGAPI-7c8ee6f2-15d3-4544-b5b3-f29de18bd770';
-const options = {
+const CALLOUT_OPTIONS = {
 	"async": true,
 	"crossDomain": true,
 	"method": "GET",
@@ -8,13 +7,14 @@ const options = {
 		"Accept-Language": "es-ES,es;q=0.9,en;q=0.8,en-GB;q=0.7",
 		"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
 		"Origin": "https://developer.riotgames.com",
-		"X-Riot-Token": API_KEY
+		"X-Riot-Token": PropertiesService.getScriptProperties().getProperty('API_KEY')
 	}
 };
-const SHEET_NAME = "LOL";
 const HOURS_BACK_RETRIEVE_STATS = 24;
 const LOSE_CHAR = 'X';
 const WIN_CHAR = 'O';
+
+const SHEET_NAME = 'LOL';
 
 function lolChallenge() {
 	let mainSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
@@ -91,7 +91,7 @@ function getChampionWin(matchId, puuid) {
 }
 
 function getCalloutResponse(endpoint){
-	var response = UrlFetchApp.fetch(endpoint, options);
+	var response = UrlFetchApp.fetch(endpoint, CALLOUT_OPTIONS);
 	return JSON.parse(response.getContentText());
 }
 
