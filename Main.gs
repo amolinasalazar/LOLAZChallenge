@@ -13,6 +13,8 @@ const options = {
 };
 const SHEET_NAME = "LOL";
 const HOURS_BACK_RETRIEVE_STATS = 24;
+const LOSE_CHAR = 'X';
+const WIN_CHAR = 'O';
 
 function lolChallenge() {
 	let mainSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
@@ -49,11 +51,11 @@ function lolChallenge() {
         let targetCellRange = mainSheet.getRange(champRow, summonerCol);
         let targetCell = targetCellRange.getCell(1, 1).getValue();
 
-				if (!targetCell.includes('O')) {
-					let result = 'X';
+				if (!targetCell.includes(WIN_CHAR)) {
+					let result = LOSE_CHAR;
 
 					if (championWin.win)
-						result = 'O';
+						result = WIN_CHAR;
 
 					targetCellRange.setValue(targetCell + result);
 				}
