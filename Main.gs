@@ -30,9 +30,9 @@ function lolChallenge() {
 
 		if (matches.length !== 0) {
 			for (let i = 0; i < matches.length; i++) {
-				Logger.log(getWinsAndLoses(matches[i], puuid));
+				Logger.log(getChampionWin(matches[i], puuid));
 
-				let nameAndWin = getWinsAndLoses(matches[i], puuid);
+				let nameAndWin = getChampionWin(matches[i], puuid);
 				nameAndWin.name = nameAndWin.name.replaceAll(' ', '').toUpperCase();
 
 				let champRow;
@@ -77,7 +77,7 @@ function getMatchesIds(puuid) {
 	return data;
 }
 
-function getWinsAndLoses(matchId, puuid) {
+function getChampionWin(matchId, puuid) {
 	var data = getCalloutResponse('https://europe.api.riotgames.com/lol/match/v5/matches/' + matchId);
 	var participants = data.info.participants
 
