@@ -29,12 +29,12 @@ function lolChallenge() {
 			for (let i = 0; i < matches.length; i++) {
 				Logger.log(getChampionWin(matches[i], puuid));
 
-				let nameAndWin = getChampionWin(matches[i], puuid);
-				nameAndWin.name = nameAndWin.name.replaceAll(' ', '').toUpperCase();
+				let championWin = getChampionWin(matches[i], puuid);
+				championWin.name = championWin.name.replaceAll(' ', '').toUpperCase();
 
 				let champRow;
 				for (let i = 0; i < matrix.length; i++) {
-					if (nameAndWin.name == matrix[i][0]) {
+					if (championWin.name == matrix[i][0]) {
 						champRow = i + 1;
 					}
 				}
@@ -52,7 +52,7 @@ function lolChallenge() {
 				if (!targetCell.includes('O')) {
 					let result = 'X';
 
-					if (nameAndWin.win)
+					if (championWin.win)
 						result = 'O';
 
 					targetCellRange.setValue(targetCell + result);
