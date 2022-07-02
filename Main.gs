@@ -32,11 +32,11 @@ function lolChallenge() {
 				Logger.log(getChampionWin(matches[i], puuid));
 
 				let championWin = getChampionWin(matches[i], puuid);
-				championWin.name = championWin.name.replaceAll(' ', '').toUpperCase();
+				championWin.name = normalizeChampionName(championWin.name);
 
 				let champRow;
 				for (let i = 0; i < matrix.length; i++) {
-					if (championWin.name == matrix[i][0]) {
+					if (championWin.name == normalizeChampionName(matrix[i][0])) {
 						champRow = i + 1;
 					}
 				}
@@ -93,4 +93,8 @@ function getChampionWin(matchId, puuid) {
 function getCalloutResponse(endpoint){
 	var response = UrlFetchApp.fetch(endpoint, options);
 	return JSON.parse(response.getContentText());
+}
+
+function normalizeChampionName(champName){
+	return champName.replaceAll(' ', '').toUpperCase();
 }
