@@ -12,7 +12,7 @@ const options = {
 	}
 };
 const SHEET_NAME = "LOL";
-const TIME_RETRIEVE_STATS = 24;
+const HOURS_BACK_RETRIEVE_STATS = 24;
 
 function lolChallenge() {
 
@@ -66,27 +66,19 @@ function lolChallenge() {
 }
 
 function getPUUID(summonerName) {
-	var response = UrlFetchApp.fetch('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summonerName, options);
-	var json = response.getContentText();
-	var data = JSON.parse(json);
-
+	var data = getCalloutResponse('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summonerName);
 	return data.puuid;
 }
 
 function getMatchesIds(puuid) {
-	var yesterday = Math.trunc(new Date().getTime() / 1000) - (TIME_RETRIEVE_STATS * 60 * 60);
-
-	var response = UrlFetchApp.fetch('https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/' + puuid + '/ids?startTime=' + yesterday + '&queue=400&start=0', options);
-	var json = response.getContentText();
-	var data = JSON.parse(json);
+	var yesterday = Math.trunc(new Date().getTime() / 1000) - (HOURS_BACK_RETRIEVE_STATS * 60 * 60);
+	var data = getCalloutResponse('https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/' + puuid + '/ids?startTime=' + yesterday + '&queue=400&start=0');
 
 	return data;
 }
 
 function getWinsAndLoses(matchId, puuid) {
-	var response = UrlFetchApp.fetch('https://europe.api.riotgames.com/lol/match/v5/matches/' + matchId, options);
-	var json = response.getContentText();
-	var data = JSON.parse(json);
+	var data = getCalloutResponse('https://europe.api.riotgames.com/lol/match/v5/matches/' + matchId);
 	var participants = data.info.participants
 
 	for (let i = 0; i < participants.length; i++) {
@@ -97,4 +89,9 @@ function getWinsAndLoses(matchId, puuid) {
 			};
 		}
 	}
+}
+
+function getCalloutResponse(endpoint){
+	var response = UrlFetchApp.fetch(endpoint, options);
+	return JSON.parse(response.getContentText());
 }
