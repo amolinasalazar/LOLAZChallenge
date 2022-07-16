@@ -48,8 +48,8 @@ function lolChallenge() {
 					}
 				}
 
-        let targetCellRange = mainSheet.getRange(champRow, summonerCol);
-        let targetCell = targetCellRange.getCell(1, 1).getValue();
+				let targetCellRange = mainSheet.getRange(champRow, summonerCol);
+				let targetCell = targetCellRange.getCell(1, 1).getValue();
 
 				if (!targetCell.includes(WIN_CHAR)) {
 					let result = LOSE_CHAR;
