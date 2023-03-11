@@ -11,7 +11,7 @@ In the ribbon menu you'll see Extensions > AppScript. From there, you create two
 ![image](https://user-images.githubusercontent.com/8297398/224480621-6286c106-b086-47cf-bcda-02840bd06a0e.png)
 
 Then, you populate all the champion names in the first column A and the summoner names in the first row 1:
-![image](https://user-images.githubusercontent.com/8297398/224481309-18797141-0fc1-4347-a087-70a8f1fc4146.png)
+![image](https://user-images.githubusercontent.com/8297398/224481369-66767779-16b6-412d-8531-4ec0961e2909.png)
 
 You can get the updated names of all the champions in League of Legends by extracting the data from DataDragon: http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json
 
